@@ -19,9 +19,7 @@ Snake *Snake_create() {
 }
 
 void Snake_destroy(Snake *self) {
-  for (int i = 0; i < self->body->size; i++) {
-    free(Deque_at(self->body, i));
-  }
+  Deque_destroy_values(self->body);
   Deque_destroy(self->body);
   free(self);
 }

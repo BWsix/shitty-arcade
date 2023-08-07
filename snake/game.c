@@ -64,9 +64,7 @@ Game *Game_create(int board_width, int board_height, int cell_width,
 }
 
 void Game_destroy(Game *self) {
-  for (int i = 0; i < Deque_size(self->walls); i++) {
-    free(Deque_at(self->walls, i));
-  }
+  Deque_destroy_values(self->walls);
   Deque_destroy(self->walls);
   Snake_destroy(self->snake);
   free(self);

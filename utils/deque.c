@@ -85,8 +85,8 @@ void *Deque_popback(Deque *self) {
   return val;
 }
 
-void Deque_clear(Deque *self) {
-  for (int i = 0; i < Deque_size(self); i++) {
-    Deque_popfront(self);
+void Deque_destroy_values(Deque *self) {
+  for (int i = Deque_size(self); i--;) {
+    free(Deque_popfront(self));
   }
 }

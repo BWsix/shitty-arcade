@@ -28,6 +28,6 @@ void Deque_pushfront(Deque *self, void *val);
 void Deque_pushback(Deque *self, void *val);
 void *Deque_popfront(Deque *self);
 void *Deque_popback(Deque *self);
-void Deque_clear(Deque *self);
+void Deque_destroy_values(Deque *self);
 
 #endif // !DEQUE_H
