@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_COMPILER clang)
 
 add_subdirectory(utils)
+add_subdirectory(components)
 add_subdirectory(snake)
+add_subdirectory(tic-tac-toe)
