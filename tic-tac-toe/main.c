@@ -13,7 +13,8 @@ int main(void) {
   const int boardWidth = 3;
   const int boardHeight = 3;
   const int screenWidth = (gapWidth + buttonWidth) * boardWidth + gapWidth;
-  const int screenHeight = (gapWidth + buttonWidth) * boardHeight + gapWidth;
+  const int screenHeight =
+      (gapWidth + buttonWidth) * boardHeight + gapWidth * 2 + 100;
 
   Cell winner = Empty;
   bool gameover = false;
@@ -89,7 +90,7 @@ int main(void) {
         break;
       }
 
-      DrawText(message, 40, 40, 100, RED);
+      DrawText(message, gapWidth, screenHeight - gapWidth - 100, 100, RED);
     }
 
     EndDrawing();

@@ -27,19 +27,25 @@ bool IsBoardFull(Cell cells[9]) {
 }
 
 void PlaceNextMove(Cell cells[9]) {
+  // if ai can win in one move, `attach`
   for (int i = 0; i < 9; i++) {
     if (cells[i] != Empty) {
       continue;
     }
 
-    // if ai can win in one move, `attach`
     cells[i] = AI;
     if (Wins(cells, AI)) {
       return;
     }
     cells[i] = Empty;
+  }
 
-    // if player can win in one move, `defend`
+  // if player can win in one move, `defend`
+  for (int i = 0; i < 9; i++) {
+    if (cells[i] != Empty) {
+      continue;
+    }
+
     cells[i] = Player;
     if (Wins(cells, Player)) {
       cells[i] = AI;
