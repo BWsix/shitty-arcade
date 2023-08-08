@@ -35,7 +35,7 @@ int main(void) {
   SetTargetFPS(120);
   while (!WindowShouldClose()) {
     for (int i = 0; i < 9; i++) {
-      ButtonState state = GetButtonState(buttons[i]);
+      ButtonState state = GetButtonState(buttons[i], MOUSE_BUTTON_LEFT);
 
       if (state == BUTTON_ACTIVATED && cells[i] == Empty) {
         cells[i] = Player;
@@ -60,7 +60,7 @@ int main(void) {
 
     for (int i = 0; i < 9; i++) {
       Rectangle button = buttons[i];
-      ButtonState state = GetButtonState(button);
+      ButtonState state = GetButtonState(button, MOUSE_BUTTON_LEFT);
       Cell cell = cells[i];
 
       if (state == BUTTON_HOVERED && cell == Empty && !gameover) {

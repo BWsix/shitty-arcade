@@ -10,6 +10,6 @@ typedef enum ButtonState {
   BUTTON_ACTIVATED,
 } ButtonState;
 
-ButtonState GetButtonState(Rectangle rect);
+ButtonState GetButtonState(Rectangle rect, MouseButton mouseButton);
 
 #endif // !BUTTON_H

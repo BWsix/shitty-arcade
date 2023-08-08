@@ -1,16 +1,16 @@
 #include "button.h"
 #include "raylib.h"
 
-ButtonState GetButtonState(Rectangle button) {
+ButtonState GetButtonState(Rectangle button, MouseButton mouseButton) {
   ButtonState state;
   Vector2 mousePos = GetMousePosition();
 
   if (CheckCollisionPointRec(mousePos, button)) {
     state = BUTTON_HOVERED;
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (IsMouseButtonDown(mouseButton)) {
       state = BUTTON_PRESSED;
     }
-    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+    if (IsMouseButtonReleased(mouseButton)) {
       state = BUTTON_ACTIVATED;
     }
   } else {
