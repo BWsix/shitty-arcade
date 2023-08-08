@@ -1,7 +1,7 @@
 #include "game.h"
 #include "dbg.h"
 #include "deque.h"
-#include <raylib.h>
+#include "raylib.h"
 #include <stdlib.h>
 
 Deque *Wall_get(int width, int height) {

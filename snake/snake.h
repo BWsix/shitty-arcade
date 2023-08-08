@@ -1,5 +1,5 @@
 #include "deque.h"
-#include <raylib.h>
+#include "raylib.h"
 
 #ifndef SNAKE_H
 #define SNAKE_H

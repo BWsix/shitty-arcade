@@ -1,8 +1,8 @@
 #include "dbg.h"
 #include "deque.h"
 #include "game.h"
+#include "raylib.h"
 #include "snake.h"
-#include <raylib.h>
 #include <stdlib.h>
 
 int main(void) {

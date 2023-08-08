@@ -1,6 +1,6 @@
 #include "snake.h"
 #include "deque.h"
-#include <raylib.h>
+#include "raylib.h"
 #include <stdlib.h>
 
 Snake *Snake_create() {
