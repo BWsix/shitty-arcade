@@ -3,8 +3,6 @@
 
 #include "ai.h"
 #include "button.h"
-#include "dbg.h"
-#include "deque.h"
 #include "raylib.h"
 
 int main(void) {
