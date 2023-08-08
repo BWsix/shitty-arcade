@@ -13,10 +13,12 @@ int main(void) {
   const int screenWidth = cellWidth * boardWidth;
   const int screenHeight = cellWidth * boardHeight;
 
+  InitWindow(screenWidth, screenHeight, "Shitty Snake");
+
+  // For `GetRandomValue` to get truly random
   Game *snakeGame =
       Game_create(boardWidth, boardHeight, cellWidth, movesPerSecond);
 
-  InitWindow(screenWidth, screenHeight, "Shitty Snake");
   SetTargetFPS(120);
   while (!WindowShouldClose()) {
     Game_loop(snakeGame);
