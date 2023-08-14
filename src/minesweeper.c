@@ -1,10 +1,32 @@
-#include "game.h"
+#include <stdbool.h>
+#include <stdlib.h>
+
+#define BUTTON_IMPLEMENTATION
 #include "button.h"
 #include "dbg.h"
+#define DEQUE_IMPLEMENTATION
 #include "deque.h"
-#include <raylib.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "raylib.h"
+
+typedef struct Cell {
+  bool isMine;
+  bool revealed;
+  bool marked;
+  int surroundingMineCount;
+
+  Rectangle rect;
+} Cell;
+
+typedef struct Game {
+  int gapSize;
+  int cellSize;
+  int rowCount;
+  int columnCount;
+  Cell **cells;
+  int mineCount;
+  bool gameover;
+  bool youWon;
+} Game;
 
 int dirs[8][2] = {
     {0, 1}, {0, -1}, {1, 1}, {1, -1}, {1, 0}, {-1, 0}, {-1, -1}, {-1, 1},
@@ -186,4 +208,30 @@ void Game_draw(Game *self) {
     char *message = self->youWon ? "YOU WON" : "YOU DIED";
     DrawText(message, 10, 10, 65, RED);
   }
+}
+
+int main(void) {
+  const int gapSize = 5;
+  const int cellSize = 30;
+  const int rowCount = 10;
+  const int columnCount = 10;
+  const int screenWidth = (gapSize + cellSize) * columnCount + gapSize;
+  const int screenHeight = (gapSize + cellSize) * rowCount + gapSize;
+
+  InitWindow(screenWidth, screenHeight, "Shitty Minesweeper");
+  Game *game = Game_create(gapSize, cellSize, rowCount, columnCount);
+
+  SetTargetFPS(120);
+  while (!WindowShouldClose()) {
+    Game_loop(game);
+
+    BeginDrawing();
+    Game_draw(game);
+    EndDrawing();
+  }
+
+  CloseWindow();
+  Game_destroy(game);
+
+  return 0;
 }

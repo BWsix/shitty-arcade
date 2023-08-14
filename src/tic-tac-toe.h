@@ -1,5 +1,21 @@
-#include "ai.h"
+#ifndef TIC_TAC_TOE_H
+#define TIC_TAC_TOE_H
 
+#include <stdbool.h>
+
+typedef enum Cell {
+  Empty = ' ',
+  Player = 'O',
+  AI = 'X',
+} Cell;
+
+bool Wins(Cell cells[9], Cell who);
+bool IsBoardFull(Cell cells[9]);
+void PlaceNextMove(Cell cells[9]);
+
+#endif // !TIC_TAC_TOE_H
+
+#ifdef TIC_TAC_TOE_IMPLEMENTATION
 int lines[8][3] = {
     {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6},
     {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6},
@@ -70,3 +86,4 @@ void PlaceNextMove(Cell cells[9]) {
     return;
   }
 }
+#endif // !TIC_TAC_TOE_IMPLEMENTATION

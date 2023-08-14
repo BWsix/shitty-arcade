@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ai.h"
+#define BUTTON_IMPLEMENTATION
 #include "button.h"
 #include "raylib.h"
+#define TIC_TAC_TOE_IMPLEMENTATION
+#include "tic-tac-toe.h"
 
 int main(void) {
   const int buttonWidth = 180;

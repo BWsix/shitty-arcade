@@ -1,8 +1,25 @@
-#include "game.h"
+#define SNAKE_IMPLEMENTATION
+#include "snake.h"
 #include "dbg.h"
+#define DEQUE_IMPLEMENTATION
 #include "deque.h"
 #include "raylib.h"
 #include <stdlib.h>
+
+typedef struct Game {
+  int board_width;
+  int board_height;
+  int cell_width;
+  Deque *walls;
+
+  Snake *snake;
+  Direction next_heading;
+  int moves_per_second;
+
+  Vector2 apple;
+  float time_counter;
+  bool gameover;
+} Game;
 
 Deque *Wall_get(int width, int height) {
   Deque *walls = Deque_create();
@@ -43,6 +60,27 @@ bool Wall_contains(Deque *walls, Vector2 cell) {
   return false;
 }
 
+Vector2 Game_get_random_cell(Game *self) {
+  while (true) {
+    Vector2 cell = {.x = GetRandomValue(1, self->board_width - 1),
+      .y = GetRandomValue(1, self->board_height - 1)};
+
+    if (Wall_contains(self->walls, cell)) {
+      continue;
+    }
+    if (Snake_contains(self->snake, cell)) {
+      continue;
+    }
+
+    Vector2 next_cell = Snake_get_next_cell(self->snake);
+    if (next_cell.x == cell.x || next_cell.y == cell.y) {
+      continue;
+    }
+
+    return cell;
+  }
+}
+
 Game *Game_create(int board_width, int board_height, int cell_width,
                   int moves_per_second) {
   Game *self = malloc(sizeof(Game));
@@ -70,26 +108,6 @@ void Game_destroy(Game *self) {
   free(self);
 }
 
-Vector2 Game_get_random_cell(Game *self) {
-  while (true) {
-    Vector2 cell = {.x = GetRandomValue(1, self->board_width - 1),
-                    .y = GetRandomValue(1, self->board_height - 1)};
-
-    if (Wall_contains(self->walls, cell)) {
-      continue;
-    }
-    if (Snake_contains(self->snake, cell)) {
-      continue;
-    }
-
-    Vector2 next_cell = Snake_get_next_cell(self->snake);
-    if (next_cell.x == cell.x || next_cell.y == cell.y) {
-      continue;
-    }
-
-    return cell;
-  }
-}
 
 void Game_loop(Game *self) {
   self->time_counter += GetFrameTime();
@@ -164,4 +182,33 @@ void Game_draw(Game *self) {
     char *message = "YOU DIED";
     DrawText(message, self->cell_width + 10, self->cell_width, 50, RED);
   }
+}
+
+int main(void) {
+  const int movesPerSecond = 9;
+  const int boardWidth = 16;
+  const int boardHeight = 16;
+  const int cellWidth = 20;
+  const int screenWidth = cellWidth * boardWidth;
+  const int screenHeight = cellWidth * boardHeight;
+
+  InitWindow(screenWidth, screenHeight, "Shitty Snake");
+
+  // For `GetRandomValue` to get truly random
+  Game *snakeGame =
+      Game_create(boardWidth, boardHeight, cellWidth, movesPerSecond);
+
+  SetTargetFPS(120);
+  while (!WindowShouldClose()) {
+    Game_loop(snakeGame);
+
+    BeginDrawing();
+    Game_draw(snakeGame);
+    EndDrawing();
+  }
+  CloseWindow();
+
+  Game_destroy(snakeGame);
+
+  return EXIT_SUCCESS;
 }
